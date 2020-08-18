@@ -23,7 +23,7 @@ docker-compose run --rm node npm install xxxxxxx --save
 
 ## Start devlopment
 ```shell script
-docker-compose run --rm node npm run serve
+make serve
 ```
 
 ## build production
