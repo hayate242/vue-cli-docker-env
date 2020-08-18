@@ -7,7 +7,7 @@
 
 ## How to start development
 ### installation & start server
-`$ make dev`
+`$ make up`
 then, please go to http://localhost/
 
 ### down container
@@ -18,8 +18,17 @@ then, please go to http://localhost/
 
 ### add libraries using composer & npm
 ```shell script
-docker-compose run --rm composer composer require xxxxxxxx
 docker-compose run --rm node npm install xxxxxxx --save
+```
+
+## Start devlopment
+```shell script
+docker-compose run --rm node npm run serve
+```
+
+## build production
+```shell script
+docker-compose run --rm node npm run build
 ```
 
 # Wiki

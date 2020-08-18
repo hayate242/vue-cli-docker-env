@@ -40,5 +40,5 @@ services:
   utility:
     image: alpine:latest
     volumes:
-      - ./src/php:/app/php
+      - ./src:/app
 
