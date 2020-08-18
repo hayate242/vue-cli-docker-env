@@ -1,0 +1,44 @@
+version: "3.7"
+
+services:
+  # npm
+  node:
+    container_name: node
+    build: ./docker/node
+    ports:
+      - 8080:8080
+    volumes:
+      - ./src:/app
+    working_dir: /app
+
+  nginx:
+    build: ./docker/nginx
+    container_name: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./src/dist:/var/www
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - node
+
+  db:
+    image: mysql:8.0.18
+    volumes:
+      - ./docker/db/data:/var/lib/mysql
+      - ./docker/db/logs:/var/log/mysql
+      - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_ROOT_PASSWORD=${DB_PASS}
+      - TZ=${TZ}
+    ports:
+      - ${DB_PORT}:3306
+
+  utility:
+    image: alpine:latest
+    volumes:
+      - ./src/php:/app/php
+
